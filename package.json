@@ -1,7 +1,7 @@
 {
   "name": "object-grep",
   "version": "1.0.0",
-  "description": "object-grep",
+  "description": "A tool for finding text in keys and content",
   "main": "./dist/index.js",
   "module": "./src/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/ulitcos/object-grep.git"
   },
-  "author": "",
+  "author": "ulitcos@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ulitcos/object-grep/issues"

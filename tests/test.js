@@ -70,6 +70,42 @@ describe('cases', () => {
       values: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'],
     });
   });
+
+  test('readme case', () => {
+    const obj = {
+      foo: {
+        bar: {
+          baz: {
+            foo: {
+              bar: {
+                baz: 'zab'
+              }
+            }
+          }
+        }
+      },
+      oof: {
+        rab: {
+          zab: ['foo', 'bar', 'baz', 'zab', 'rab', 'oof']
+        }
+      }
+    }
+
+    expect(objectGrep(obj, 'baz')).toEqual({
+      keys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'],
+      values: ['oof.rab.zab.2'],
+    });
+
+    expect(objectGrep(obj, /b.z/, )).toEqual({
+      keys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'],
+      values: ['oof.rab.zab.2'],
+    });
+
+    expect(objectGrep(obj, 'baz', 4)).toEqual({
+      keys: ['foo.bar.baz'],
+      values: ['oof.rab.zab.2'],
+    });
+  });
 });
 
 describe('inject', () => {
