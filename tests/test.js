@@ -1,5 +1,5 @@
-import { data } from './data';
 import { objectGrep } from '../src';
+import { data } from './data';
 
 describe('cases', () => {
   test('base case', () => {
@@ -69,5 +69,13 @@ describe('cases', () => {
       keys: ['glossary.GlossDiv.A_regexpkey_DocBook'],
       values: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'],
     });
+  });
+});
+
+describe('inject', () => {
+  test('inject', () => {
+    expect(Object.grep).toBeUndefined();
+    objectGrep.inject();
+    expect(Object.grep).toBeDefined();
   });
 });

@@ -1,6 +1,6 @@
 export function objectGrep(obj, searchExpr, depth = 100, path = '', result = {}) {
   if (depth === 0) {
-    return result
+    return result;
   }
 
   if (!searchExpr) {
@@ -36,3 +36,12 @@ export function objectGrep(obj, searchExpr, depth = 100, path = '', result = {})
 
   return result;
 }
+
+objectGrep.inject = function () {
+  Object.defineProperty(Object.prototype, 'grep', {
+    enumerable: false,
+    value: function (regex, depth) {
+      return objectGrep(this, regex, depth);
+    }
+  });
+};
