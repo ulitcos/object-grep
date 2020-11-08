@@ -16,7 +16,7 @@
     "url": "git+https://github.com/ulitcos/object-grep.git"
   },
   "author": "ulitcos@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ulitcos/object-grep/issues"
   },

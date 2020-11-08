@@ -1,6 +1,10 @@
 # object-grep
 A tool for searching text in keys and content similar to linux grep
 
+## install
+```
+npm i object-grep
+```
 ## usage
 
 ```javascript
