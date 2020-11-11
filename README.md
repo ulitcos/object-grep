@@ -1,5 +1,5 @@
 # object-grep
-A tool for searching text in keys and content similar to linux grep
+A javascript tool for searching text in keys and content inspired by linux grep
 
 ## install
 ```

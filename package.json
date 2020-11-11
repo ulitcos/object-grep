@@ -1,7 +1,7 @@
 {
   "name": "object-grep",
   "version": "1.1.0",
-  "description": "A tool for finding text in keys and content",
+  "description": "A javascript tool for searching text in keys and content inspired by linux grep",
   "main": "./dist/index.js",
   "module": "./src/index.js",
   "scripts": {
@@ -15,7 +15,15 @@
     "type": "git",
     "url": "git+https://github.com/ulitcos/object-grep.git"
   },
-  "author": "ulitcos@gmail.com",
+  "keywords": [
+    "grep",
+    "grep-js",
+    "object-grep",
+    "find-in-object",
+    "search-in-object",
+    "search-by-object"
+  ],
+  "author": "Ruslan Krokhin <ulitcos@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ulitcos/object-grep/issues"
