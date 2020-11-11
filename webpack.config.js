@@ -7,5 +7,6 @@ module.exports = {
     filename: 'index.js',
     library: 'objectGrep',
     libraryTarget: 'umd',
+    globalObject: 'this'
   }
 };
