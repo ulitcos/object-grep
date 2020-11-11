@@ -1,6 +1,6 @@
 {
   "name": "object-grep",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A tool for finding text in keys and content",
   "main": "./dist/index.js",
   "module": "./src/index.js",
