@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/ulitcos/object-grep/issues"
   },
-  "homepage": "https://github.com/ulitcos/object-grep#readme",
+  "homepage": "https://ulitcos.github.io/object-grep/",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
