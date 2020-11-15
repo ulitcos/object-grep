@@ -17,11 +17,10 @@
   },
   "keywords": [
     "grep",
-    "grep-js",
-    "object-grep",
-    "find-in-object",
-    "search-in-object",
-    "search-by-object"
+    "search in object",
+    "find in object",
+    "javascript",
+    "node.js"
   ],
   "author": "Ruslan Krokhin <ulitcos@gmail.com>",
   "license": "MIT",
