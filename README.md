@@ -1,4 +1,4 @@
-# [object-grep](https://ulitcos.github.io/object-grep/)
+# object-grep
 A javascript tool for searching inside objects inspired by linux grep
 
 ## installation
@@ -23,22 +23,22 @@ yarn add object-grep
 
 ```javascript
 const obj = {
-    foo: {
-        bar: {
-            baz: {
-                foo: {
-                    bar: {
-                        baz: 'zab'
-                    }
-                }
-            }    
+  foo: {
+    bar: {
+      baz: {
+        foo: {
+          bar: {
+            baz: 'zab'
+          }
         }
-    },
-    oof: {
-        rab: {
-            zab: ['foo', 'bar', 'baz', 'zab', 'rab', 'oof']
-        }
+      }    
     }
+  },
+  oof: {
+    rab: {
+      zab: ['foo', 'bar', 'baz', 'zab', 'rab', 'oof']
+    }
+  }
 }
 
 objectGrep(obj, 'baz') // => {keys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'], values: ['oof.rab.zab.2']}
