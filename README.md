@@ -1,4 +1,6 @@
 # object-grep
+[![Build Status](https://travis-ci.com/ulitcos/object-grep.svg?branch=master)](https://travis-ci.com/ulitcos/object-grep)
+
 A javascript tool for searching inside objects inspired by linux grep
 
 ## installation
