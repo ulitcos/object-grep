@@ -9,7 +9,9 @@
     "watch": "webpack --watch",
     "lint": "eslint ./src",
     "test": "jest",
-    "publish": "npm run build && npm publish"
+    "publish-patch": "npm run build && npm version patch && npm publish",
+    "publish-minor": "npm run build && npm version minor && npm publish",
+    "publish-major": "npm run build && npm version major && npm publish"
   },
   "repository": {
     "type": "git",
