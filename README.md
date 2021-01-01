@@ -24,7 +24,7 @@ yarn add object-grep
 ## usage
 
 ```javascript
-const obj = {
+const target = {
   foo: {
     bar: {
       baz: {
@@ -43,15 +43,48 @@ const obj = {
   }
 }
 
-objectGrep(obj, 'baz') // => {keys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'], values: ['oof.rab.zab.2']}
+objectGrep(target, 'baz') // => {inKeys: {'foo.bar.baz':  {foo: {…}}, 'foo.bar.baz.foo.bar.baz': 'zab'}, inValues: {'oof.rab.zab.2': 'baz'}}
 
 // or regexp
 
-objectGrep(obj, /b.z/) // => {keys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'], values: ['oof.rab.zab.2']}
+objectGrep(target, /b.z/) // => {inKeys: {'foo.bar.baz':  {foo: {…}}, 'foo.bar.baz.foo.bar.baz': 'zab'}, inValues: {'oof.rab.zab.2': 'baz'}}
 
 // or with depth limit
 
-objectGrep(obj, /b.z/, 4) // => {keys: ['foo.bar.baz'], values: ['oof.rab.zab.2']}
+objectGrep(target, /b.z/, 4) // => {inKeys: {'foo.bar.baz':  {foo: {…} }}, inValues: {'oof.rab.zab.2': 'baz'}}
+```
+
+## short view
+You can also use a short output format. To do this, call the `short()` method on the result. This way you will only see paths to keys and values with no data stored on those paths  
+```javascript
+const target = {
+  foo: {
+    bar: {
+      baz: {
+        foo: {
+          bar: {
+            baz: 'zab'
+          }
+        }
+      }    
+    }
+  },
+  oof: {
+    rab: {
+      zab: ['foo', 'bar', 'baz', 'zab', 'rab', 'oof']
+    }
+  }
+}
+
+objectGrep(target, 'baz').short() // => {inKeys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'], inValues: ['oof.rab.zab.2']}
+
+// or regexp
+
+objectGrep(target, /b.z/).short() // => {inKeys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'], inValues: ['oof.rab.zab.2']}
+
+// or with depth limit
+
+objectGrep(target, /b.z/, 4).short() // => {inKeys: ['foo.bar.baz'], inValues: ['oof.rab.zab.2']}
 ```
 
 ## inject
@@ -61,9 +94,9 @@ It can be added to the object prototype
 ```javascript
 objectGrep.inject()
 
-const obj = { a: { b : { c: 'd' } } }
+const target = { a: { b : { c: 'd' } } }
 
-obj.grep('b') // => {keys: ['a.b']}
+target.grep('b') // => {keys: ['a.b']}
 ```
 
 ## chrome extension

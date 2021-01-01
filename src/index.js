@@ -1,40 +1,64 @@
-export function objectGrep(obj, searchExpr, depth = 100, path = '', result = {}) {
-  if (depth === 0) {
+function grep({target, searchExpr, depth, path, result}) {
+  if (depth < 1) {
     return result;
   }
 
-  if (!searchExpr) {
-    searchExpr = String(searchExpr);
-  }
-
-  Object.keys(obj).forEach((key) => {
+  Object.keys(target).forEach((key) => {
     const keyPath = !path ? key : `${path}.${key}`;
-    const value = obj[key];
+    const value = target[key];
 
     if (key.match(searchExpr)) {
-      if (!result.keys) {
-        result.keys = [];
-      }
-
-      result.keys.push(keyPath);
+      result.inKeys[keyPath] = value;
     }
 
     if (['string', 'number', 'boolean', 'undefined'].includes(typeof value) || value === null) {
       if (String(value).match(searchExpr)) {
-        if (!result.values) {
-          result.values = [];
-        }
-
-        result.values.push(keyPath);
+        result.inValues[keyPath] = value;
       }
 
       return;
     }
 
-    objectGrep(value, searchExpr, depth - 1, keyPath, result);
+    grep({
+      searchExpr,
+      result,
+      path: keyPath,
+      target: value,
+      depth: depth - 1,
+    });
   });
 
   return result;
+}
+
+export function objectGrep(target, searchExpr, depth = 20) {
+  const result = Object.create({
+      short: function () {
+        return {
+          inKeys: Object.keys(this.inKeys),
+          inValues: Object.keys(this.values),
+        };
+      }
+    },
+    {
+      inValues: {writable: true, configurable: true, enumerable: true, value: {}},
+      inKeys: {writable: true, configurable: true, enumerable: true, value: {}}
+    }
+  );
+
+  const path = '';
+
+  if (!searchExpr) {
+    searchExpr = String(searchExpr);
+  }
+
+  return grep({
+    target,
+    searchExpr,
+    depth,
+    path,
+    result
+  });
 }
 
 objectGrep.inject = function () {
