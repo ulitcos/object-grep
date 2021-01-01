@@ -814,28 +814,6 @@ a:hover {
   padding: 0;
 }
 
-.tabs-labels {
-  border-bottom: 2px solid #159957;
-  padding-left: 10px !important;
-}
-
-.tabs-label {
-  display: inline-block;
-  border: 2px solid transparent;
-  border-bottom: none;
-  padding: 5px 10px;
-  border-radius: 5px 5px 0 0;
-  position: relative;
-  top: 2px;
-  cursor: pointer;
-}
-
-.tabs-label.active {
-  border-color: #159957;
-  background: #fff;
-  cursor: default;
-}
-
 /*tabs - end*/
 
 /*loader - start*/
@@ -899,3 +877,14 @@ a:hover {
   display: block;
 }
 
+.selector {
+  border: 2px solid #159957;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  cursor: pointer;
+  outline: none;
+}

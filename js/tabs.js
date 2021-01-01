@@ -1,24 +1,13 @@
 function tabs(node, callbacks) {
-  const labels = node.querySelectorAll('[data-tabs-role="label"]');
-  const pages = node.querySelectorAll('[data-tabs-role="page"]');
+  const select = node.querySelector('[data-tabs-role="select"]');
 
-  function setCurrent(index) {
-    callbacks[index] && callbacks[index]();
-    labels.forEach((label) => {
-      label.classList.remove('active');
-    });
-
-    pages.forEach((page) => {
-      page.classList.remove('active');
-    });
-
-    labels[index] && labels[index].classList.add('active');
-    pages[index] && pages[index].classList.add('active');
+  function setCurrent(name) {
+    callbacks[name] && callbacks[name]();
   }
 
-  labels.forEach((label, index) => {
-    label.addEventListener('click', setCurrent.bind(null, index))
+  select.addEventListener('change', (e) => {
+    setCurrent(e.target.value)
   });
 
-  setCurrent(0);
+  setCurrent('string');
 };

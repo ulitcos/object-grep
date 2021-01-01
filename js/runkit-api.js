@@ -22,9 +22,10 @@ const obj = {
 
 `;
   const examples = {
-    string: source + 'objectGrep(obj, \'baz\') // => {keys: [\'foo.bar.baz\', \'foo.bar.baz.foo.bar.baz\'], values: [\'oof.rab.zab.2\']}',
-    regexp: source + 'objectGrep(obj, /b.z/) // => {keys: [\'foo.bar.baz\', \'foo.bar.baz.foo.bar.baz\'], values: [\'oof.rab.zab.2\']}',
-    depth: source + 'objectGrep(obj, /b.z/, 4) // => {keys: [\'foo.bar.baz\'], values: [\'oof.rab.zab.2\']}',
+    string: source + 'objectGrep(obj, \'baz\') // => {inKeys: {\'foo.bar.baz\': {...}, \'foo.bar.baz.foo.bar.baz\': \'zab\'}, inValues: {\'oof.rab.zab.2\': \'zab\'}}',
+    regexp: source + 'objectGrep(obj, /b.z/) // => {inKeys: {\'foo.bar.baz\': {...}, \'foo.bar.baz.foo.bar.baz\': \'zab\'}, inValues: {\'oof.rab.zab.2\': \'zab\'}}',
+    depth: source + 'objectGrep(obj, /b.z/, 4) // => {inKeys: {\'foo.bar.baz\': {...}}, inValues: {\'oof.rab.zab.2\': \'zab\'}}',
+    short: source + 'objectGrep(obj, \'baz\').short() // => {inKeys: [\'foo.bar.baz\', \'foo.bar.baz.foo.bar.baz\'], inValues: [\'oof.rab.zab.2\']}',
   };
 
   const commonProps = {
@@ -42,11 +43,12 @@ const obj = {
     document.querySelector('#runkit-api').className = '';
   };
 
-  const callbacks = [
-    () => runKit.setSource(examples.string),
-    () => runKit.setSource(examples.regexp),
-    () => runKit.setSource(examples.depth),
-  ];
+  const callbacks = {
+    string: () => runKit.setSource(examples.string),
+    regexp: () => runKit.setSource(examples.regexp),
+    depth: () => runKit.setSource(examples.depth),
+    short: () => runKit.setSource(examples.short),
+  };
 
   tabs(document.querySelector('#tabs-api'), callbacks);
 }());

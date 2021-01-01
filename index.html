@@ -48,11 +48,12 @@
 
   <h3>Examples</h3>
   <div class="tabs" id="tabs-api">
-    <ul class="tabs-labels">
-      <li class="tabs-label" data-tabs-role="label">String</li>
-      <li class="tabs-label" data-tabs-role="label">RegExp</li>
-      <li class="tabs-label" data-tabs-role="label">Depth limit</li>
-    </ul>
+    <select data-tabs-role="select" class="selector">
+      <option value="string">String</option>
+      <option value="regexp">RegExp</option>
+      <option value="depth">Depth limit</option>
+      <option value="short">Short view</option>
+    </select>
     <ul class="tabs-pages">
       <div id="runkit-api" class="loading runkit">
         <div class="loader"></div>
