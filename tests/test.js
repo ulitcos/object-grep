@@ -12,6 +12,11 @@ describe('cases', () => {
         'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard': 'A meta-markup language, used to create markup ID languages such as DocBook'
       },
     });
+
+    expect(objectGrep(data, 'ID').short()).toEqual({
+      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.ID', 'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.ID'],
+      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'],
+    });
   });
 
   test('null case', () => {
@@ -22,6 +27,11 @@ describe('cases', () => {
       inValues: {
         'glossary.GlossDiv.EmptyField': null
       },
+    });
+
+    expect(objectGrep(data, null).short()).toEqual({
+      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.null'],
+      inValues: ['glossary.GlossDiv.EmptyField'],
     });
   });
 
@@ -35,6 +45,11 @@ describe('cases', () => {
         'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.ID': '48'
       },
     });
+
+    expect(objectGrep(data, 8).short()).toEqual({
+      inKeys: ['glossary.GlossDiv.key8'],
+      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.Abbrev', 'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.ID'],
+    });
   });
 
   test('string case', () => {
@@ -45,6 +60,11 @@ describe('cases', () => {
       inValues: {
         'glossary.GlossDiv.GlossList.GlossEntry.GlossTerm': 'Standard Generalized Markup Language'
       },
+    });
+
+    expect(objectGrep(data, 'ard').short()).toEqual({
+      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'],
+      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.GlossTerm'],
     });
   });
 
@@ -57,6 +77,11 @@ describe('cases', () => {
         'glossary.GlossDiv.GlossList.GlossEntry.ID': undefined
       },
     });
+
+    expect(objectGrep(data, undefined).short()).toEqual({
+      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.undefinedkey'],
+      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.ID'],
+    });
   });
 
   test('true case', () => {
@@ -67,6 +92,11 @@ describe('cases', () => {
       inValues: {
         'glossary.isAwesome': true
       },
+    });
+
+    expect(objectGrep(data, true).short()).toEqual({
+      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.true'],
+      inValues: ['glossary.isAwesome'],
     });
   });
 
@@ -79,6 +109,11 @@ describe('cases', () => {
         'glossary.GlossDiv.GlossList.GlossEntry.true': false
       },
     });
+
+    expect(objectGrep(data, false).short()).toEqual({
+      inKeys: ['glossary.GlossDiv.false'],
+      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.true'],
+    });
   });
 
   test('array case', () => {
@@ -89,6 +124,15 @@ describe('cases', () => {
         'glossary.GlossDiv.GlossList.GlossEntry.list.3': 'arr',
         'glossary.GlossDiv.GlossList.GlossEntry.list.4.foo.1': 'arr',
       },
+    });
+
+    expect(objectGrep(data, 'arr').short()).toEqual({
+      inKeys: [],
+      inValues: [
+        'glossary.GlossDiv.GlossList.GlossEntry.list.0',
+        'glossary.GlossDiv.GlossList.GlossEntry.list.3',
+        'glossary.GlossDiv.GlossList.GlossEntry.list.4.foo.1',
+      ],
     });
   });
 
@@ -104,6 +148,18 @@ describe('cases', () => {
         'glossary.isAwesome': true
       },
     });
+
+    expect(objectGrep(data, 't', 3).short()).toEqual({
+      inKeys: [
+        'glossary.title',
+        'glossary.GlossDiv.title',
+        'glossary.GlossDiv.EmptyField',
+        'glossary.GlossDiv.GlossList'
+      ],
+      inValues: [
+        'glossary.isAwesome',
+      ],
+    });
   });
 
   test('regexp case', () => {
@@ -114,6 +170,15 @@ describe('cases', () => {
       inValues: {
         'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard': 'A meta-markup language, used to create markup ID languages such as DocBook'
       },
+    });
+
+    expect(objectGrep(data, /^A.*DocBook$/).short()).toEqual({
+      inKeys: [
+        'glossary.GlossDiv.A_regexpkey_DocBook',
+      ],
+      inValues: [
+        'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'
+      ],
     });
   });
 
@@ -147,6 +212,11 @@ describe('cases', () => {
       },
     });
 
+    expect(objectGrep(obj, 'baz').short()).toEqual({
+      inKeys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'],
+      inValues: ['oof.rab.zab.2'],
+    });
+
     expect(objectGrep(obj, /b.z/,)).toEqual({
       inKeys: {
         'foo.bar.baz': obj.foo.bar.baz,
@@ -157,6 +227,11 @@ describe('cases', () => {
       },
     });
 
+    expect(objectGrep(obj, /b.z/).short()).toEqual({
+      inKeys: ['foo.bar.baz', 'foo.bar.baz.foo.bar.baz'],
+      inValues: ['oof.rab.zab.2'],
+    });
+
     expect(objectGrep(obj, 'baz', 4)).toEqual({
       inKeys: {
         'foo.bar.baz': obj.foo.bar.baz
@@ -165,14 +240,10 @@ describe('cases', () => {
         'oof.rab.zab.2': obj.oof.rab.zab[2]
       },
     });
-  });
-});
 
-describe('short', () => {
-  test('base case', () => {
-    expect(objectGrep(data, 'ID').short()).toEqual({
-      inKeys: ['glossary.GlossDiv.GlossList.GlossEntry.ID', 'glossary.GlossDiv.GlossList.GlossEntry.GlossDef.ID'],
-      inValues: ['glossary.GlossDiv.GlossList.GlossEntry.GlossDef.pard'],
+    expect(objectGrep(obj, 'baz', 4).short()).toEqual({
+      inKeys: ['foo.bar.baz'],
+      inValues: ['oof.rab.zab.2'],
     });
   });
 });

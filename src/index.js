@@ -36,7 +36,7 @@ export function objectGrep(target, searchExpr, depth = 20) {
       short: function () {
         return {
           inKeys: Object.keys(this.inKeys),
-          inValues: Object.keys(this.values),
+          inValues: Object.keys(this.inValues),
         };
       }
     },
