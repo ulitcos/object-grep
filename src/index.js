@@ -61,11 +61,31 @@ export function objectGrep(target, searchExpr, depth = 20) {
   });
 }
 
-objectGrep.inject = function () {
-  Object.defineProperty(Object.prototype, 'grep', {
+const symbol = Symbol('grep');
+
+objectGrep.inject = function (propertyName = 'grep') {
+  if (propertyName in Object.prototype) {
+    throw new Error(`Object.prototype already has ${propertyName}. Choose another name`);
+  }
+
+  const fn = function (regex, depth) {
+    return objectGrep(this, regex, depth);
+  };
+
+  fn.symbol = symbol;
+
+  Object.defineProperty(Object.prototype, propertyName, {
+    configurable: true,
     enumerable: false,
-    value: function (regex, depth) {
-      return objectGrep(this, regex, depth);
+    value: fn
+  });
+};
+
+objectGrep.revoke = function () {
+  const prototype = Object.prototype;
+  Object.getOwnPropertyNames(Object.prototype).forEach(propertyName => {
+    if (prototype[propertyName] && prototype[propertyName].symbol && prototype[propertyName].symbol === symbol) {
+      delete prototype[propertyName];
     }
   });
 };

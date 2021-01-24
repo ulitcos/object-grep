@@ -248,10 +248,35 @@ describe('cases', () => {
   });
 });
 
-describe('inject', () => {
-  test('inject', () => {
+describe('inject and revoke', () => {
+  beforeEach(() => {
+    objectGrep.revoke();
+  });
+  test('inject and revoke', () => {
     expect(Object.grep).toBeUndefined();
     objectGrep.inject();
     expect(Object.grep).toBeDefined();
+    objectGrep.revoke();
+    expect(Object.grep).toBeUndefined();
+  });
+
+  test('inject grep as deepSearch', () => {
+    expect(Object.grep).toBeUndefined();
+    expect(Object.deepSearch).toBeUndefined();
+    objectGrep.inject('deepSearch');
+    expect(Object.deepSearch).toBeDefined();
+    expect(Object.grep).toBeUndefined();
+    objectGrep.revoke();
+    expect(Object.deepSearch).toBeUndefined();
+    expect(Object.grep).toBeUndefined();
+  });
+
+  test('inject for an existing method', () => {
+    expect(Object.grep).toBeUndefined();
+    objectGrep.inject();
+    expect(Object.grep).toBeDefined();
+    expect(() => {
+      objectGrep.inject();
+    }).toThrowError(new Error(`Object.prototype already has grep. Choose another name`));
   });
 });
