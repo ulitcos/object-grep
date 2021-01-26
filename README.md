@@ -1,25 +1,32 @@
 # object-grep
+
 [![Build Status](https://travis-ci.com/ulitcos/object-grep.svg?branch=master)](https://travis-ci.com/ulitcos/object-grep)
 
-A javascript tool for searching inside objects inspired by linux grep
+A javascript tool for searching inside objects inspired by linux grep. The tool performs deep searches in javascript
+objects, returning back lists of keys and values for which the search clause will be executed, this is especially useful
+when debugging. Regular expressions are used under the hood, so you can very flexibly customize your search terms
 
 ## installation
 
 ```bash
 npm i object-grep
 ```
+
 or
+
 ```bash
 yarn add object-grep
 ```
 
 ## arguments
 
-**targetObject**: [`object` | `array` | `function` | `string`] - a target object where all keys and property contents will be recursively checked for matching searchExpr
+**targetObject**: [`object` | `array` | `function` | `string`] - a target object where all keys and property contents
+will be recursively checked for matching searchExpr
 
 **searchExpr**: [`string` | `regexp`] - expression for checking for compliance
 
-**depth limit**?: [`number`] - the number of levels to check. objectGrep works synchronously, which can cause the browser to freeze if the object being checked is very large. The default value is 100
+**depth limit**?: [`number`] - the number of levels to check. objectGrep works synchronously, which can cause the
+browser to freeze if the object being checked is very large. The default value is 20
 
 ## usage
 
@@ -33,7 +40,7 @@ const target = {
             baz: 'zab'
           }
         }
-      }    
+      }
     }
   },
   oof: {
@@ -55,7 +62,10 @@ objectGrep(target, /b.z/, 4) // => {inKeys: {'foo.bar.baz':  {foo: {…} }}, inV
 ```
 
 ## short view
-You can also use a short output format. To do this, call the `short()` method on the result. This way you will only see paths to keys and values with no data stored on those paths  
+
+You can also use a short output format. To do this, call the `short()` method on the result. This way you will only see
+paths to keys and values with no data stored on those paths
+
 ```javascript
 const target = {
   foo: {
@@ -66,7 +76,7 @@ const target = {
             baz: 'zab'
           }
         }
-      }    
+      }
     }
   },
   oof: {
@@ -89,17 +99,43 @@ objectGrep(target, /b.z/, 4).short() // => {inKeys: ['foo.bar.baz'], inValues: [
 
 ## inject
 
-It can be added to the object prototype
+It can be added to the object prototype. This way it will be possible to call grep from any object
 
 ```javascript
 objectGrep.inject()
 
-const target = { a: { b : { c: 'd' } } }
+const target = {a: {b: {c: 'd'}}}
 
-target.grep('b') // => {keys: ['a.b']}
+target.grep('b') // => {inKeys: {a.b: {c: 'd'}}, inValues: {}}
+```
+
+You can set any name for the method if you don't like grep
+
+```javascript
+objectGrep.inject('deepSearch')
+
+const target = {a: {b: {c: 'd'}}}
+
+target.deepSearch('b') // => {inKeys: {a.b: {c: 'd'}}, inValues: {}}
+```
+
+## revoke
+
+To cancel injection use the revoke method. To cancel injection use the revoke method. Calling revoke will return the
+object prototype to its original form
+
+```javascript
+objectGrep.inject()
+
+Object.prototype.grep // => ƒ (regex, depth) {...}
+
+objectGrep.revoke()
+
+Object.prototype.grep // => undefined
 ```
 
 ## chrome extension
 
-You can also install a [browser extension](https://github.com/ulitcos/object-grep-chrome-extension) and use object-grep on any site without any extra effort
+You can also install a [browser extension](https://github.com/ulitcos/object-grep-chrome-extension) and use object-grep
+on any site without any extra effort
 
