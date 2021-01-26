@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Javascript object grep</title>
+  <title>Javascript object grep | Javascript deep search</title>
   <meta property="og:title" content="Javascript object grep"/>
   <meta property="og:locale" content="en_US"/>
   <meta name="description" content="A javascript tool for searching text in keys and content similar to linux grep"/>
@@ -22,8 +22,8 @@
     }</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
-  <meta name="google-site-verification" content="OGFplQFepjd4kwXUbqmleltDmMayjF61uFog21zE150" />
-  <meta name="yandex-verification" content="e8c4401757af28c0" />
+  <meta name="google-site-verification" content="OGFplQFepjd4kwXUbqmleltDmMayjF61uFog21zE150"/>
+  <meta name="yandex-verification" content="e8c4401757af28c0"/>
   <link rel="stylesheet" href="styles.css">
   <script src="https://embed.runkit.com"></script>
   <script src="js/tabs.js"></script>
@@ -31,12 +31,15 @@
 <body>
 <section class="page-header">
   <h1 class="project-name">Javascript object grep</h1>
-  <h2 class="project-tagline">A javascript tool for searching text in keys and content similar to linux grep. Works in
-    browsers and Node.js</h2>
+  <h2 class="project-tagline">A javascript tool for searching inside objects inspired by linux grep. Works in browsers and Node.js</h2>
   <a href="https://github.com/ulitcos/object-grep" class="btn">View on GitHub</a>
 </section>
 
 <section class="main-content">
+  <p>The tool performs
+    deep searches in javascript objects, returning back lists of keys and values for which the search clause will be
+    executed, this is especially useful when debugging. Regular expressions are used under the hood, so you can very
+    flexibly customize your search terms.</p>
   <h3 id="install">Install</h3>
   <pre class="highlight"><code>npm i object-grep</code></pre>
   <h3>Arguments</h3>
@@ -44,7 +47,7 @@
     recursively checked for matching searchExpr</p>
   <p><b>searchExpr</b>: [string|regexp] - expression for checking for compliance</p>
   <p><b>depth limit</b>?: [number] - the number of levels to check. objectGrep works synchronously, which can cause the
-    browser to freeze if the object being checked is very large. The default value is 100</p>
+    browser to freeze if the object being checked is very large. The default value is 20</p>
 
   <h3>Examples</h3>
   <div class="tabs" id="tabs-api">
@@ -65,6 +68,11 @@
   <p>You can add it to the object prototype. You can then call the grep method on any object</p>
   <div id="runkit-inject" class="runkit"></div>
 
+  <h3>Revoke</h3>
+  <p>To cancel injection use the revoke method. To cancel injection use the revoke method. Calling revoke will return
+    the object prototype to its original form</p>
+  <div id="runkit-revoke" class="runkit"></div>
+
   <h3>Chrome extension</h3>
   <p>You can also install a <a href="https://github.com/ulitcos/object-grep-chrome-extension">browser extension</a> and
     use object-grep on any site without any extra effort</p>
@@ -79,21 +87,29 @@
 </section>
 <script src="js/runkit-api.js"></script>
 <script src="js/runkit-inject.js"></script>
+<script src="js/runkit-revoke.js"></script>
 
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+<script type="text/javascript">
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () {
+      (m[i].a = m[i].a || []).push(arguments);
+    };
+    m[i].l = 1 * new Date();
+    k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
+  })
+  (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-  ym(69407653, "init", {
-    clickmap:true,
-    trackLinks:true,
-    accurateTrackBounce:true,
-    webvisor:true
+  ym(69407653, 'init', {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true
   });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/69407653" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript>
+  <div><img src="https://mc.yandex.ru/watch/69407653" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
 <!-- /Yandex.Metrika counter -->
 </body>
 </html>

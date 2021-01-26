@@ -3,15 +3,17 @@
 
 objectGrep.inject()
 
-const obj = { a: { b : { c: 'd' } } }
+Object.prototype.grep // => ƒ (regex, depth) {...}
 
-obj.grep('b') // => {inKeys: {a.b: {c: 'd'}}, inValues: {}}
+objectGrep.revoke()
+
+Object.prototype.grep // => undefined
 `;
 
   RunKit.createNotebook({
     gutterStyle: 'none',
     tabSize: 2,
-    element: document.getElementById('runkit-inject'),
+    element: document.getElementById('runkit-revoke'),
     source: source
   });
 }());
