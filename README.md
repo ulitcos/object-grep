@@ -121,7 +121,7 @@ target.deepSearch('b') // => {inKeys: {a.b: {c: 'd'}}, inValues: {}}
 
 ## revoke
 
-To cancel injection use the revoke method. To cancel injection use the revoke method. Calling revoke will return the
+To cancel injection use the revoke method. Calling revoke will return the
 object prototype to its original form
 
 ```javascript
