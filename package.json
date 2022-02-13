@@ -1,6 +1,6 @@
 {
   "name": "object-grep",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A javascript tool for searching text in keys and content inspired by linux grep",
   "main": "./dist/index.js",
   "module": "./src/index.js",
