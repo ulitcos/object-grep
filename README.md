@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.com/ulitcos/object-grep.svg?branch=master)](https://travis-ci.com/ulitcos/object-grep)
 
-A javascript tool for searching inside objects inspired by linux grep. The tool performs deep searches in javascript
-objects, returning back lists of keys and values for which the search clause will be executed, this is especially useful
-when debugging. Regular expressions are used under the hood, so you can very flexibly customize your search terms
+A javascript tool for searching inside objects, inspired by linux grep. The tool performs a deep search in javascript objects, returning back lists of keys and values that fit the search parameters, this is especially useful when debugging. Regular expressions are used under the hood, so you can customize your search queries very flexibly.
 
 ## installation
 
@@ -20,8 +18,7 @@ yarn add object-grep
 
 ## arguments
 
-**targetObject**: [`object` | `array` | `function` | `string`] - a target object where all keys and property contents
-will be recursively checked for matching searchExpr
+**targetObject**: [`object` | `array` | `function` | `string`] - a target object where all keys and property contents will be recursively checked for matching searchExpr
 
 **searchExpr**: [`string` | `regexp`] - expression for checking for compliance
 
