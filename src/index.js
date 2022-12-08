@@ -1,52 +1,57 @@
-function grep({target, searchExpr, depth, path, result}) {
-  if (depth < 1) {
-    return result;
-  }
 
-  Object.keys(target).forEach((key) => {
-    const keyPath = !path ? key : `${path}.${key}`;
-    const value = target[key];
+function isObject(value) {
+  return typeof value === 'object' && value !== null;
+}
+
+function grep({ target, searchExpr, result, depth }) {
+  const queue = [{ target, depth, path: '', key: '' }];
+
+  while (queue.length) {
+    const { target, path, key, depth } = queue.shift();
+
+    if (depth < 1) {
+      return result;
+    }
 
     if (key.match(searchExpr)) {
-      result.inKeys[keyPath] = value;
+      result.inKeys[path] = target;
     }
 
-    if (['string', 'number', 'boolean', 'undefined'].includes(typeof value) || value === null) {
-      if (String(value).match(searchExpr)) {
-        result.inValues[keyPath] = value;
+    if (!isObject(target)) {
+      if (String(target).match(searchExpr)) {
+        result.inValues[path] = target;
       }
 
-      return;
+      continue;
     }
 
-    grep({
-      searchExpr,
-      result,
-      path: keyPath,
-      target: value,
-      depth: depth - 1,
-    });
-  });
+    Object.keys(target).forEach(
+      key => queue.push({
+        target: target[key],
+        depth: depth - 1,
+        path: !path ? key : `${path}.${key}`,
+        key
+      })
+    );
+  }
 
   return result;
 }
 
 export function objectGrep(target, searchExpr, depth = 20) {
   const result = Object.create({
-      short: function () {
-        return {
-          inKeys: Object.keys(this.inKeys),
-          inValues: Object.keys(this.inValues),
-        };
-      }
-    },
+    short: function () {
+      return {
+        inKeys: Object.keys(this.inKeys),
+        inValues: Object.keys(this.inValues),
+      };
+    }
+  },
     {
-      inValues: {writable: true, configurable: true, enumerable: true, value: {}},
-      inKeys: {writable: true, configurable: true, enumerable: true, value: {}}
+      inValues: { writable: true, configurable: true, enumerable: true, value: {} },
+      inKeys: { writable: true, configurable: true, enumerable: true, value: {} }
     }
   );
-
-  const path = '';
 
   if (!searchExpr) {
     searchExpr = String(searchExpr);
@@ -56,7 +61,6 @@ export function objectGrep(target, searchExpr, depth = 20) {
     target,
     searchExpr,
     depth,
-    path,
     result
   });
 }
@@ -83,9 +87,10 @@ objectGrep.inject = function (propertyName = 'grep') {
 
 objectGrep.revoke = function () {
   const prototype = Object.prototype;
-  Object.getOwnPropertyNames(Object.prototype).forEach(propertyName => {
-    if (prototype[propertyName] && prototype[propertyName].symbol && prototype[propertyName].symbol === symbol) {
-      delete prototype[propertyName];
+
+  Object.getOwnPropertyNames(prototype).forEach(name => {
+    if (prototype[name]?.symbol === symbol) {
+      delete prototype[name];
     }
   });
 };

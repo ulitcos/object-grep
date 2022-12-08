@@ -137,7 +137,7 @@ describe('cases', () => {
   });
 
   test('depth case', () => {
-    expect(objectGrep(data, 't', 3)).toEqual({
+    expect(objectGrep(data, 't', 4)).toEqual({
       inKeys: {
         'glossary.title': 'example glossary',
         'glossary.GlossDiv.title': 'S',
@@ -149,7 +149,7 @@ describe('cases', () => {
       },
     });
 
-    expect(objectGrep(data, 't', 3).short()).toEqual({
+    expect(objectGrep(data, 't', 4).short()).toEqual({
       inKeys: [
         'glossary.title',
         'glossary.GlossDiv.title',
@@ -232,7 +232,7 @@ describe('cases', () => {
       inValues: ['oof.rab.zab.2'],
     });
 
-    expect(objectGrep(obj, 'baz', 4)).toEqual({
+    expect(objectGrep(obj, 'baz', 5)).toEqual({
       inKeys: {
         'foo.bar.baz': obj.foo.bar.baz
       },
@@ -241,7 +241,7 @@ describe('cases', () => {
       },
     });
 
-    expect(objectGrep(obj, 'baz', 4).short()).toEqual({
+    expect(objectGrep(obj, 'baz', 5).short()).toEqual({
       inKeys: ['foo.bar.baz'],
       inValues: ['oof.rab.zab.2'],
     });
